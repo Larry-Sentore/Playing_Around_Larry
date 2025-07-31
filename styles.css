@@ -1,0 +1,133 @@
+body{
+    padding: 10px 0;
+    text-align: center;
+    justify-content: center;
+    background-image: url("https://sdmntprwestus.oaiusercontent.com/files/00000000-eda0-6230-b3f2-22bb370ac8bb/raw?se=2025-07-30T20%3A29%3A44Z&sp=r&sv=2024-08-04&sr=b&scid=98fd13f1-78a2-599e-873e-e222611e768d&skoid=61180a4f-34a9-42b7-b76d-9ca47d89946d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-30T18%3A37%3A42Z&ske=2025-07-31T18%3A37%3A42Z&sks=b&skv=2024-08-04&sig=/etfKY/ZVA3niH41Vyu3SsfQNC5p/1CEfxYsRZ34jiY%3D");
+}
+
+
+h1 {
+    color: #ffffff; 
+    font-family: "Nunito", sans-serif;
+    font-size: 2.5em;
+    margin: 0;
+}
+
+h2 {
+    color: #ffffff;
+    font-family: "Nunito", sans-serif;
+    font-size: 2em;
+    margin: 0;
+}
+
+.Url_box {
+  background: rgba(255, 255, 255, 0.15); /* semi-transparent white */
+  backdrop-filter: blur(10px);          /* blur effect behind */
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  max-width: 1250px;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  
+}
+
+label {
+    color: #ffffff; /* Soft white for readability */
+    font-family: "Nunito", sans-serif;
+    font-size: 1.2em;
+}
+
+input[type="text"] {
+  width: 50%;
+  padding: 12px 16px;
+  border: 2px solid #044b77;      /* Green border */
+  border-radius: 8px;             /* Rounded corners */
+  font-size: 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  box-shadow: black;
+  transition: border-color 0.3s ease;
+}
+
+
+button{
+    background-color: #8dc2e3; /* Light blue for a fresh look */
+    color: #ffffff;
+    padding: 12px 20px;
+    border: 1px solid #044b77; /* Dark blue border */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #2a586f; /* Darker blue on hover */
+    cursor: pointer;
+}
+
+/* Style each song item */
+li {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+}
+
+li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style the cover image */
+li img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+/* Song info block */
+.song-info {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* Link button */
+.link a {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  margin-left: 16px;
+  transition: background 0.3s ease;
+}
+
+.link a:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.playlists a{
+    display: inline-block;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  margin-left: 16px;
+  transition: background 0.3s ease;
+}
+
+.playlists a:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
