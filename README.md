@@ -1,194 +1,71 @@
-Here’s a comprehensive `README.md` file tailored to your project:
-
----
-
 # 🎵 Larry's Song Recommender App
 
-This web app recommends Spotify songs based on an artist name input by the user. It fetches real-time data from two RapidAPI endpoints and renders song suggestions with a sleek, glassmorphic UI.
+#The Song Recommender Web app is here to help users input an arist's name and recieve a playlist full of songs by the artist and with a similar vibe to the artist's music.
 
----
+🚀 Features
 
-## 🚀 Features
+Search an artist name then get a playlist with recommended songs
 
-* Search for an artist name
-* View recommended songs with:
+View recommended songs with:
 
-  * Album art
-  * Title
-  * Artist name
-  * Duration
-  * Spotify link
-* Animated, glass-like card UI
-* Load-balanced across multiple containers
-* Fully Dockerized deployment
+Album art
+Title
+Artist name
+Duration
+Spotify link
 
----
+Load-balanced across multiple containers
 
-## 🛠 Technologies Used
+🛠 API Services 
 
-* **Frontend:** HTML, CSS, JavaScript
-* **Backend:** N/A (static frontend with client-side API requests)
-* **Containerization:** Docker, Docker Compose
-* **Load Balancing:** HAProxy
-* **API Services:**
+Spotify Scraper API by DataFanatic
+Spotify23 API by Glavier
 
-  * [Spotify Scraper by DataFanatic](https://rapidapi.com/DataFanatic/api/spotify-scraper/playground/apiendpoint_f8c99f2c-6fcd-4fe6-917e-3fdfc5ef6a18)
-  * [Spotify23 by Glavier](https://rapidapi.com/Glavier/api/spotify23/playground/apiendpoint_a216a745-27d1-40c9-8600-8217b8c9978b)
+💻 Running the App Locally
 
----
+1. Clone the Repo
+2. run run.sh
+3. On Vs, install and run Live Server
+4. Open a browser and navigate to http://localhost:5000
 
-## 📦 Setup Instructions
+🌐 Deploying to Web Servers (web-01, web-02, lb-01)
 
-### ✅ Prerequisites
+1. Run these commands to built an image and push it to Docker Hub:
 
-* Docker installed on your machine
-* A [RapidAPI](https://rapidapi.com) account with keys for the APIs above
-* (Optional) Docker Hub account for pushing images
-
----
-
-## 💻 Running the App Locally
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone <your-repo-url>
-   cd larry_song_recommender
-   ```
-
-2. **Add Your API Key**
-
-   Create a `.env` file at the root:
-
-   ```
-   X_RAPIDAPI_KEY=your_rapidapi_key_here
-   ```
-
-3. **Run the App**
-
-   ```bash
-   chmod +x run.sh
-   ./run.sh
-   ```
-
-   This sets the environment variable and builds the Docker image.
-
-4. **Access Locally**
-
-   Visit [http://localhost:8080](http://localhost:8080) to use the app.
-
----
-
-## 🌐 Deploying to Web Servers (web-01, web-02, lb-01)
-
-### 1. Build and Push Docker Image
-
-```bash
 docker build -t <your-dockerhub-username>/larry_song_recommender:v1 .
 docker push <your-dockerhub-username>/larry_song_recommender:v1
-```
 
-### 2. SSH Into Web Servers
+2. Run docker compose up --build -d
 
-```bash
-ssh your-user@web-01
-ssh your-user@web-02
-```
+3. Tag your containers with this link
 
-### 3. On Both `web-01` and `web-02`
+docker tag larry_song_recommender:latest <your-docherhub-username>/larry_song_recommender-lb-01:v1
+docker tag larry_song_recommender:latest <your-docherhub-username>/larry_song_recommender-web-01:v1
+docker tag larry_song_recommender:latest <your-docherhub-username>/larry_song_recommender-web-02:v1
 
-```bash
-docker pull <your-dockerhub-username>/larry_song_recommender:v1
+4. Push the images to Docker Hub
 
-docker run -d --name app --restart unless-stopped \
-  -p 8080:80 \
-  -e INSTANCE_ID=web-01 \
-  <your-dockerhub-username>/larry_song_recommender:v1
-```
+docker push <your-dockerhub-username>/larry_song_recommender-lb-01:v1
+docker push <your-dockerhub-username>/larry_song_recommender-web-01:v1
+docker push <your-dockerhub-username>/larry_song_recommender-web-02:v1
 
-Repeat for `web-02` (change `INSTANCE_ID=web-02`)
+5. Acess the app on these ports
 
-### 4. On `lb-01`
+ http://localhost:8081
+ http://localhost:8082
+ http://localhost:8080
 
-Update `haproxy.cfg` like so:
 
-```haproxy
-backend webapps
-    balance roundrobin
-    server web01 172.20.0.11:8080 check
-    server web02 172.20.0.12:8080 check
-```
+ 🧪 Load Balancing Test
 
-Then run:
+View: Load_balancer_test.png
 
-```bash
-docker run -d --name lb-01 --network webnet \
-  -p 8080:80 \
-  -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
-  haproxy:alpine
-```
+⚠️ Challenges
 
-Reload HAProxy if needed:
+1. Hiding the API key. Put the api.js in a gitignore and its initialized when the app is run
+2. Docker server config files: What to put in the config files was tricky but after some reaerach I figured it out.
 
-```bash
-docker exec -it lb-01 sh -c 'haproxy -sf $(pidof haproxy) -f /usr/local/etc/haproxy/haproxy.cfg'
-```
+👤 Author
+Larry GitHub: @larninja Docker Hub: https://hub.docker.com/repositories/larninja
 
----
 
-## 🧪 Load Balancing Test
-
-Refresh [http://localhost:8080](http://localhost:8080) multiple times. You should see `Served by: web-01` or `web-02` alternating in the footer. This proves HAProxy is balancing traffic.
-
----
-
-## 🗂 File Structure
-
-```bash
-├── Dockerfile
-├── docker-compose.yml
-├── .env              # Your API key (gitignored)
-├── .dockerignore
-├── api.template.js   # Template with env placeholder
-├── index.template.html
-├── run.sh
-├── haproxy.cfg
-└── ...
-```
-
----
-
-## 🔐 API Key Management
-
-* Your API key is stored in `.env` and is **never committed to Git**.
-* It is injected into the container as an environment variable via `docker run` or `docker-compose`.
-
----
-
-## 📚 Credits
-
-* **Spotify Scraper API** by [DataFanatic](https://rapidapi.com/DataFanatic/api/spotify-scraper)
-* **Spotify23 API** by [Glavier](https://rapidapi.com/Glavier/api/spotify23)
-* Thanks to [HAProxy](http://www.haproxy.org/) for simple load balancing
-
----
-
-## ⚠️ Challenges & Solutions
-
-| Challenge                                        | Solution                                                                 |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| CORS and browser restrictions on static frontend | Used RapidAPI endpoints with proper headers                              |
-| Hiding API key from frontend                     | Used `envsubst` and environment variables injected into static templates |
-| Docker load balancing setup                      | Used HAProxy and Docker bridge network with semantic instance names      |
-
----
-
-## 👤 Author
-
-**Larry**
-GitHub: [@larninja](https://github.com/larninja)
-Docker Hub: [larninja](https://hub.docker.com/u/larninja)
-
----
-
-Let me know if you'd like this generated as a file or auto-saved into your project!
