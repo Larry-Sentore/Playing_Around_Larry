@@ -1,4 +1,4 @@
-const X_RapidAPI_Key = 
+import { X_RapidAPI_Key } from "./api.js";
 
 document.getElementById('search-button').addEventListener('click', async () => {
     const input = document.getElementById('url').value.trim();
