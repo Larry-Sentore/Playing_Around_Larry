@@ -1,22 +1,11 @@
-let X_RapidAPI_Key = null;
-
-async function getApiKey() {
-  const res = await fetch('/api/key');
-  const data = await res.json();
-  return data.apiKey;
-}
+const X_RapidAPI_Key = 
 
 document.getElementById('search-button').addEventListener('click', async () => {
-  if (!X_RapidAPI_Key) {
-    X_RapidAPI_Key = await getApiKey();
-  }
-
-  const input = document.getElementById('url').value.trim();
-  if (!input) {
-    alert("Please enter a Spotify artist URL or artist name.");
-    return;
-  }
-
+    const input = document.getElementById('url').value.trim();
+    if (!input) {
+        alert("Please enter a Spotify artist URL or artist name.");
+        return;
+    }
     //delete previous results
     const existingResults = document.querySelector('.results');
     if (existingResults) {
