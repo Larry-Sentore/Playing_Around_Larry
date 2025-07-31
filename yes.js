@@ -113,3 +113,4 @@ document.getElementById('search-button').addEventListener('click', async () => {
         alert('Something went wrong. Check console for details.');
     }
 });
+
